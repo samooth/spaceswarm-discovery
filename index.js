@@ -1,4 +1,4 @@
-const dht = require('@hyperswarm/dht')
+const dht = require('@spaceswarm-dht')
 const multicast = require('multicast-dns')
 const { EventEmitter } = require('events')
 const crypto = require('crypto')
