@@ -1,13 +1,14 @@
 const crypto = require('crypto')
 const test = require('tape')
-const dht = require('dht-rpc')
+const DHT = require('dht-rpc')
 const discovery = require('./')
 
-const bootstrap = dht({ ephemeral: true })
-var bootstrapPort
+const bootstrap = new DHT({ ephemeral: true })
+let bootstrapPort
 
-test('setup bootstrap', t => {
-  bootstrap.listen(null, err => {
+test('setup bootstrap', async t => {
+  await bootstrap.fullyBootstrapped()
+  bootstrap.on('listening', err => {
     t.error(err)
 
     bootstrapPort = bootstrap.socket.address().port
@@ -108,7 +109,7 @@ test('announce & announce with lookup = true', t => {
   const port2 = allocPort()
   const ann2 = d2.announce(key, { port: port2, lookup: true })
 
-  var hits = 2
+  let hits = 2
   function onPeer (port) {
     return (peer) => {
       t.equal(peer.port, port, 'peer port is as expected')
@@ -169,7 +170,7 @@ function inst (opts = {}) {
   return discovery(Object.assign({ bootstrap: [`127.0.0.1:${bootstrapPort}`] }, opts))
 }
 
-var nextPort = 10000
+let nextPort = 10000
 function allocPort () {
   return nextPort++
 }

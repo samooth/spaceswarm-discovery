@@ -4,26 +4,26 @@
   "description": "The Spaceswarm discovery stack",
   "main": "index.js",
   "dependencies": {
-    "spaceswarm-dht": "^0.0.1",
-    "multicast-dns": "^7.2.2",
-    "timeout-refresh": "^1.0.2"
+    "spacedht": "latest",
+    "multicast-dns": "^7.2.5",
+    "timeout-refresh": "^2.0.1"
   },
   "devDependencies": {
-    "dht-rpc": "^4.1.2",
-    "standard": "^12.0.1",
-    "tape": "^4.9.1"
+    "dht-rpc": "^6.18.1",
+    "standard": "^17.1.2",
+    "tape": "^5.9.0"
   },
   "scripts": {
     "test": "standard && tape test.js"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hyperswarm/discovery.git"
+    "url": "https://github.com/samoooth/spaceswarm-discovery.git"
   },
   "author": "Mathias Buus (@mafintosh)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/hyperswarm/discovery/issues"
+    "url": "https://github.com/samooth/spaceswarm-discovery/issues"
   },
-  "homepage": "https://github.com/hyperswarm/discovery"
+  "homepage": "https://github.com/samooth/spaceswarm-discovery"
 }

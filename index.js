@@ -1,4 +1,4 @@
-const dht = require('@spaceswarm-dht')
+const DHT = require('spacedht')
 const multicast = require('multicast-dns')
 const { EventEmitter } = require('events')
 const crypto = require('crypto')
@@ -32,7 +32,7 @@ class Topic extends EventEmitter {
     this._answer = port
       ? { type: 'SRV', name, data: { target: '0.0.0.0', port } }
       : null
-    this._idAnswer = { type: 'TXT', name, data: [ this.id ] }
+    this._idAnswer = { type: 'TXT', name, data: [this.id] }
     this._startDht()
     if (!this.announce || opts.lookup) this._startMdns()
     if (this.announce) process.nextTick(this._fireAnnounce.bind(this))
@@ -133,8 +133,8 @@ class Topic extends EventEmitter {
     loop()
 
     function loop () {
-      var called = false
-      var flushed = false
+      let called = false
+      let flushed = false
 
       let maxReplies = 1
       let maxCount = 0
@@ -212,21 +212,23 @@ class Discovery extends EventEmitter {
     opts.ephemeral = opts.ephemeral !== false
 
     this.destroyed = false
-    this.dht = dht(opts)
+    this.dht = new DHT(opts)
     this.mdns = opts.multicast || multicast()
 
     this.mdns.on('query', this._onmdnsquery.bind(this))
     this.mdns.on('response', this._onmdnsresponse.bind(this))
 
-    const domain = opts.domain || 'hyperswarm.local'
+    const domain = opts.domain || 'spaceswarm.local'
 
     this._tld = '.' + domain
     this._domains = new Map()
     this._bootstrap = this.dht.bootstrapNodes
   }
+
   get ephemeral () {
     return this.dht.ephemeral
   }
+
   ping (cb) {
     const res = []
     const len = this._bootstrap.length
@@ -235,7 +237,7 @@ class Discovery extends EventEmitter {
       return process.nextTick(cb, new Error('No bootstrap nodes available'))
     }
 
-    var missing = len
+    let missing = len
     const start = Date.now()
 
     for (const bootstrap of this._bootstrap) {
@@ -253,7 +255,7 @@ class Discovery extends EventEmitter {
       if (err) return cb(err)
       if (res.length < 2) return cb(new Error('Not enough bootstrap nodes replied'))
       const first = res[0].pong
-      for (var i = 1; i < res.length; i++) {
+      for (let i = 1; i < res.length; i++) {
         const pong = res[i].pong
         if (pong.host !== first.host || pong.port !== first.port) {
           return cb(null, false)
@@ -332,7 +334,7 @@ class Discovery extends EventEmitter {
     if (!opts) opts = {}
 
     const self = this
-    var missing = 1
+    let missing = 1
 
     this.mdns.destroy()
     if (opts.force) return process.nextTick(done)
