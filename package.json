@@ -1,6 +1,6 @@
 {
   "name": "spaceswarm-discovery",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The Spaceswarm discovery stack",
   "main": "index.js",
   "dependencies": {
