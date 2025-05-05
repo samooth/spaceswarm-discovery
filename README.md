@@ -1,15 +1,15 @@
-# @hyperswarm/discovery
+# spaceswarm-discovery
 
-The hyperswarm peer discovery module
+The spaceswarm peer discovery module
 
 ```
-npm install @hyperswarm/discovery
+npm install spaceswarm-discovery
 ```
 
 ## Usage
 
 ``` js
-const discovery = require('@hyperswarm/discovery')
+const discovery = require('spaceswarm-discovery')
 const crypto = require('crypto')
 
 const d = discovery()
